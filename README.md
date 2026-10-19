@@ -9,31 +9,32 @@ A production-ready Retrieval-Augmented Generation (RAG) assistant designed for d
 
 ---
 
+
 ## 📌 Architecture Overview
 
 
+```text
 [ User PDF Upload ]
-│
-▼
+        │
+        ▼
 [ PyPDFLoader & RecursiveCharacterTextSplitter ] (Chunk size: 1000, Overlap: 150)
-│
-▼
+        │
+        ▼
 [ HuggingFace Embeddings ] (sentence-transformers/all-MiniLM-L6-v2)
-│
-▼
+        │
+        ▼
 [ ChromaDB Vector Store ] (Local persistent indexing)
-│
-▼
+        │
+        ▼
 [ Relevant Context Retrieval ] (Top-K similarity matching)
-│
-▼
+        │
+        ▼
 [ LangChain LCEL Pipeline ] + [ Google Gemini ]
-│
-▼
+        │
+        ▼
 [ Synthesized Answer / Streamlit UI ]
+```
 
-
----
 
 ## 🛠️ Tech Stack
 
@@ -101,7 +102,7 @@ GOOGLE_API_KEY=your_google_api_key_here
 streamlit run app.py
 
 
-🔒 Security
+# 🔒 Security
 
 
 API keys are handled via python-dotenv for local development 
