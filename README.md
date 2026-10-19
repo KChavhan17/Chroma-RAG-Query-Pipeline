@@ -93,3 +93,7 @@ GOOGLE_API_KEY=your_google_api_key_here
 ```bash
 streamlit run app.py
 ```
+
+
+## 🔒 Security
+API keys are handled via `python-dotenv` for local runs and encrypted `st.secrets` for cloud deployment. No credentials or temporary vector data are tracked in version control.
