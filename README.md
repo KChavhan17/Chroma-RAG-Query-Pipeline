@@ -56,66 +56,40 @@ A production-ready Retrieval-Augmented Generation (RAG) assistant designed for d
 
 ---
 
+
 ## ⚙️ Local Setup Instructions
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/KChavhan17/Chroma-RAG-Query-Pipeline.git](https://github.com/KChavhan17/Chroma-RAG-Query-Pipeline.git)
-   cd Chroma-RAG-Query-Pipeline
+**1. Clone the repository:**
+```bash
+git clone [https://github.com/KChavhan17/Chroma-RAG-Query-Pipeline.git](https://github.com/KChavhan17/Chroma-RAG-Query-Pipeline.git)
+cd Chroma-RAG-Query-Pipeline
+```
 
-
-1.Create and activate a virtual environment:
-
-
+**2. Create and activate a virtual environment:**
+```bash
 python -m venv venv
+```
+* **Windows:**
+  ```powershell
+  venv\Scripts\activate
+  ```
+* **Linux/macOS:**
+  ```bash
+  source venv/bin/activate
+  ```
 
-
-# Windows:
-
-
-venv\Scripts\activate
-
-
-# Linux/macOS:
-
-
-source venv/bin/activate
-
-
-# 2.Install dependencies:
-
-
+**3. Install dependencies:**
+```bash
 pip install -r requirements.txt
+```
 
-
-# 3.Set up environment variables:
-
-
-Create a .env file in the root directory:
-
+**4. Set up environment variables:**  
+Create a `.env` file in the root folder:
+```env
 GOOGLE_API_KEY=your_google_api_key_here
+```
 
-
-# 4.Run the Streamlit application:
-
-
+**5. Run the application:**
+```bash
 streamlit run app.py
-
-
-# 🔒 Security
-
-
-API keys are handled via python-dotenv for local development 
-
-
-and encrypted st.secrets for production cloud deployment. 
-
-
-Secret keys, virtual environments, and 
-
-
-local ChromaDB persistence stores are strictly excluded 
-
-
-from version control via .gitignore.
-
+```
