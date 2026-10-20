@@ -58,7 +58,7 @@ if uploaded_file:
         retriever = process_pdf(temp_path).as_retriever(search_kwargs={"k": 3})
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-flash",
         api_key=api_key,
         temperature=0
     )
