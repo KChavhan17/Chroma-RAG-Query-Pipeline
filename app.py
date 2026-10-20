@@ -22,10 +22,16 @@ os.environ["GOOGLE_API_KEY"] = api_key or ""
 st.set_page_config(page_title="Free RAG Assistant", layout="wide")
 st.title("📄 Free Local RAG Assistant (Gemini)")
 
-uploaded_file = st.file_uploader("Upload a PDF", type=["pdf"])
+col1, col2 = st.columns([5, 1])
+with col1:
+    uploaded_file = st.file_uploader("Upload a PDF", type=["pdf"])
+with col2:
+    if st.button("🗑️ Clear Chat", use_container_width=True):
+        st.session_state.messages = []
+        st.rerun()
 
 if uploaded_file:
-    # Reset chat history when a different PDF is uploaded
+    # Reset chat history if user uploads a new document
     if "current_file" not in st.session_state or st.session_state.current_file != uploaded_file.name:
         st.session_state.current_file = uploaded_file.name
         st.session_state.messages = []
@@ -48,10 +54,12 @@ if uploaded_file:
         embeddings = load_embeddings()
         return Chroma.from_documents(documents=chunks, embedding=embeddings)
 
-    retriever = process_pdf(temp_path).as_retriever(search_kwargs={"k": 3})
+    with st.spinner("Processing document..."):
+        retriever = process_pdf(temp_path).as_retriever(search_kwargs={"k": 3})
+
     llm = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
-        google_api_key=api_key,
+        api_key=api_key,
         temperature=0
     )
 
@@ -82,6 +90,10 @@ if uploaded_file:
             st.markdown(query)
 
         with st.chat_message("assistant"):
-            ans = rag_chain.invoke(query)
-            st.markdown(ans)
-        st.session_state.messages.append({"role": "assistant", "content": ans})
+            try:
+                with st.spinner("Thinking..."):
+                    ans = rag_chain.invoke(query)
+                st.markdown(ans)
+                st.session_state.messages.append({"role": "assistant", "content": ans})
+            except Exception as e:
+                st.error(f"Error: {e}")
